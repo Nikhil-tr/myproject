@@ -1,0 +1,47 @@
+Terraform Installation on ubuntu
+---------------------------------
+
+sudo curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+sudo apt-get update && sudo apt-get install terraform
+
+Verify  :  terraform version
+
+Terraform Installation on centos
+-----------------------------------
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+sudo yum -y install terraform
+
+Verify  :  terraform version
+
+Create IAM user
+---------------------
+Name -> dont give permission for gui -> Ec2FullAcess,S3FullAcess
+user1 -> security-creds -> access-token -> create -> third party
+
+Access key: AKIAYRBPVQJVOCK4SXI3
+Secret-Access-Key: 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
+
+login to user1 and create an inst
+------------------------------------
+vi login.tf
+provider "aws"{
+    access_key = "AKIAYRBPVQJVOCK4SXI3"
+    secret_key = "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"
+    region = "us-east-1"
+}
+
+vi inst.tf
+resource "aws_instance" "dev"{
+  instance_type = "t2.micro"
+  count = 2
+  key_name = "Nvirginia-key"
+  ami = "ami-0fc5d935ebf8bc3bc"
+}
+
+terraform init ( download all required plugin)
+terraform plan ( dry run without executing anything ,can be used to check errors)
+terraform apply ( deploy script and launch resources)
+terraform destroy (deletes all the resources created by script)
+

@@ -1,0 +1,22 @@
+It reads all the *.tf files present inside the directory (/root/abc)
+
+All the information of the resources is stored in terraform.tfstate
+
+terraform init     (download all required plugin)
+
+terraform plan     (dry run without executing anything ,can be used to check errors)
+
+terraform apply    (deploy script and launch resources)
+
+terraform destroy  (deletes all the resources created by script)
+
+terraform state list         (lists the resources created)
+aws_instance.dev[0]
+aws_instance.dev[1]
+
+terraform state show aws_instance.dev[0]    #(display all info of inst1, public-ip/private-ip/security-key)
+
+terraform destroy -target aws_instance.dev[0]    (deletes only this resource)
+
+terraform apply -target aws_instance.dev[3]      (launch only this inst)
+
